@@ -7,7 +7,7 @@
 Add the following to package dependencies
 
 ```swift 
-    .package(url: "https://github.com/boweber/composable-authentication-services", from: "0.1.0")
+.package(url: "https://github.com/boweber/composable-authentication-services", from: "0.1.0")
 ```
 and
 ```swift 
