@@ -17,7 +17,7 @@ let package = Package(
         .package(
           url: "https://github.com/pointfreeco/swift-composable-architecture",
           branch: "concurrency-beta"
-        )
+        ),
     ],
     targets: [
         .target(
