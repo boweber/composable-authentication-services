@@ -10,7 +10,7 @@ class ComposableAuthenticationServicesTests: XCTestCase {
             reducer: .authenticate,
             environment: AuthenticationManager.live
         )
-        let credentials = UserCredentials(password: "password", account: "account")
+        let credentials = UserCredentials(account: "account", password: "password")
         let server = "server.com"
         store.send(
             .saveInternetPassword(server: server, credentials: credentials)
@@ -19,7 +19,7 @@ class ComposableAuthenticationServicesTests: XCTestCase {
         }
         
         store.send(.readInternetPassword(server: server, account: credentials.account)) {
-            $0.readInternetPassword = .success(.init(password: credentials.password, account: credentials.account))
+            $0.readInternetPassword = .success(.init(account: credentials.account, password: credentials.password))
         }
         
         store.send(.deleteInternetPassword(server: server, account: credentials.account)) {
@@ -33,7 +33,7 @@ class ComposableAuthenticationServicesTests: XCTestCase {
             reducer: .authenticate,
             environment: AuthenticationManager.live
         )
-        let credentials = UserCredentials(password: "password", account: "account")
+        let credentials = UserCredentials(account: "account", password: "password")
         let server = "server.com"
         store.send(
             .saveInternetPassword(server: server, credentials: credentials)
@@ -42,17 +42,17 @@ class ComposableAuthenticationServicesTests: XCTestCase {
         }
         
         store.send(.readInternetPassword(server: server, account: credentials.account)) {
-            $0.readInternetPassword = .success(.init(password: credentials.password, account: credentials.account))
+            $0.readInternetPassword = .success(.init(account: credentials.account, password: credentials.password))
         }
         
-        let newCredentials = UserCredentials(password: "new-password", account: "account")
+        let newCredentials = UserCredentials(account: "account", password: "new-password")
         
         store.send(
             .saveInternetPassword(server: server, credentials: newCredentials)
         )
         
         store.send(.readInternetPassword(server: server, account: credentials.account)) {
-            $0.readInternetPassword = .success(.init(password: newCredentials.password, account: newCredentials.account))
+            $0.readInternetPassword = .success(.init(account: newCredentials.account, password: newCredentials.password))
         }
         
         store.send(.deleteInternetPassword(server: server, account: newCredentials.account)) {
@@ -67,7 +67,7 @@ class ComposableAuthenticationServicesTests: XCTestCase {
             environment: AuthenticationManager.throwError(.failedToEncodeString)
         )
         
-        store.send(.saveInternetPassword(password: "", server: "", account: "")) {
+        store.send(.saveInternetPassword(server: "", account: "", password: "")) {
             $0.savedInternetPassword = .failure(.failedToEncodeString)
         }
     }

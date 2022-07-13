@@ -28,6 +28,7 @@ let package = Package(
         ),
         .testTarget(
             name: "ComposableAuthenticationServicesTests",
-            dependencies: ["ComposableAuthenticationServices"]),
+            dependencies: ["ComposableAuthenticationServices"]
+        ),
     ]
 )

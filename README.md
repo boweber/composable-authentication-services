@@ -1,13 +1,13 @@
 # ComposableAuthenticationServices
 
 ## Features
-- Save, read and delete user credentials to Keychain
+- Save, delete and read user credentials to/from Keychain
 
 ## Installation
 Add the following to package dependencies
 
 ```swift 
-.package(url: "https://github.com/boweber/composable-authentication-services", from: "0.1.0")
+.package(url: "https://github.com/boweber/composable-authentication-services", from: "0.1.1")
 ```
 and
 ```swift 

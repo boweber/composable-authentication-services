@@ -13,11 +13,11 @@ extension Reducer where State == AuthenticationManager.State, Action == Authenti
         case let .readInternetPassword(server: server, account: account):
             do {
                 let credentials = try authenticationManager.readInternetPassword(server, account)
-                state.readInternetPassword = .success(UserCredentials(password: credentials.password, account: credentials.account))
+                state.readInternetPassword = .success(UserCredentials(account: credentials.account, password: credentials.password))
             } catch {
                 state.unsafeAssign(error, to: \.readInternetPassword)
             }
-        case let .saveInternetPassword(password: password, server: server, account: account):
+        case let .saveInternetPassword(server: server, account: account, password: password):
             do {
                 try authenticationManager.saveInternetPassword(password, server, account)
                 state.savedInternetPassword = .success(true)
