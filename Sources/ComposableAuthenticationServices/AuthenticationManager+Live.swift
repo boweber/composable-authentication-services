@@ -11,7 +11,6 @@ extension AuthenticationManager {
             kSecAttrAccount as String: account,
             kSecValueData as String: secret
         ]
-        
         let status = SecItemAdd(query as CFDictionary, nil)
         switch status {
         case errSecSuccess: return
@@ -48,7 +47,11 @@ extension AuthenticationManager {
         }
         let status = SecItemDelete(query as CFDictionary)
         switch status {
-        case errSecSuccess, errSecItemNotFound: return
+        case errSecSuccess:
+            return
+        case errSecItemNotFound:
+            assertionFailure("Tried to delete an unknown key from Keychain")
+            return
         default:
             let message = SecCopyErrorMessageString(status, nil).map { $0 as String }
             throw Error.unhandledError(status: status, message: message)
@@ -74,7 +77,6 @@ extension AuthenticationManager {
                let account = existingItem[kSecAttrAccount as String] as? String {
                 return (account, password)
             } else {
-                
                 throw Error.unexpectedPasswordData
             }
         case errSecItemNotFound:

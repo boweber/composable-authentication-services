@@ -2,7 +2,6 @@ import ComposableArchitecture
 
 extension Reducer where State == AuthenticationManager.State, Action == AuthenticationManager.Action, Environment == AuthenticationManager {
     public static let authenticate = Reducer { state, action, authenticationManager in
-        
         switch action {
         case let .deleteInternetPassword(server: server, account: account):
             do {
@@ -31,7 +30,7 @@ extension Reducer where State == AuthenticationManager.State, Action == Authenti
 }
 
 extension Reducer {
-    func authenticatable(
+    public func authenticatable(
         state: WritableKeyPath<State, AuthenticationManager.State>,
         action: CasePath<Action, AuthenticationManager.Action>,
         environment: @escaping (Environment) -> AuthenticationManager
