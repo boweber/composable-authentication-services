@@ -10,10 +10,10 @@ class ComposableAuthenticationServicesTests: XCTestCase {
             reducer: .authenticate,
             environment: AuthenticationManager.live
         )
-        let credentials = AuthenticationManager.State.Credentials(password: "password", account: "account")
+        let credentials = UserCredentials(password: "password", account: "account")
         let server = "server.com"
         store.send(
-            .saveInternetPassword(password: credentials.password, server: server, account: credentials.account)
+            .saveInternetPassword(server: server, credentials: credentials)
         ) {
             $0.savedInternetPassword = .success(true)
         }
@@ -33,10 +33,10 @@ class ComposableAuthenticationServicesTests: XCTestCase {
             reducer: .authenticate,
             environment: AuthenticationManager.live
         )
-        let credentials = AuthenticationManager.State.Credentials(password: "password", account: "account")
+        let credentials = UserCredentials(password: "password", account: "account")
         let server = "server.com"
         store.send(
-            .saveInternetPassword(password: credentials.password, server: server, account: credentials.account)
+            .saveInternetPassword(server: server, credentials: credentials)
         ) {
             $0.savedInternetPassword = .success(true)
         }
@@ -45,10 +45,10 @@ class ComposableAuthenticationServicesTests: XCTestCase {
             $0.readInternetPassword = .success(.init(password: credentials.password, account: credentials.account))
         }
         
-        let newCredentials = AuthenticationManager.State.Credentials(password: "new-password", account: "account")
+        let newCredentials = UserCredentials(password: "new-password", account: "account")
         
         store.send(
-            .saveInternetPassword(password: newCredentials.password, server: server, account: newCredentials.account)
+            .saveInternetPassword(server: server, credentials: newCredentials)
         )
         
         store.send(.readInternetPassword(server: server, account: credentials.account)) {
