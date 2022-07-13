@@ -1,6 +1,4 @@
 #if DEBUG
-import XCTestDynamicOverlay
-
 extension AuthenticationManager {    
     public static func throwError(_ error: AuthenticationManager.Error) -> AuthenticationManager {
         AuthenticationManager { _, _, _ in

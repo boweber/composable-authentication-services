@@ -1,7 +1,7 @@
 import AuthenticationServices
 
 extension AuthenticationManager {
-    public static let live = AuthenticationManager { password, server, account in
+    public static let live = AuthenticationManager { server, account, password in
         guard let secret = password.data(using: String.Encoding.utf8) else {
             throw Error.failedToEncodeString
         }

@@ -19,7 +19,7 @@ extension Reducer where State == AuthenticationManager.State, Action == Authenti
             }
         case let .saveInternetPassword(server: server, account: account, password: password):
             do {
-                try authenticationManager.saveInternetPassword(password, server, account)
+                try authenticationManager.saveInternetPassword(server, account, password)
                 state.savedInternetPassword = .success(true)
             } catch {
                 state.unsafeAssign(error, to: \.savedInternetPassword)
@@ -52,7 +52,7 @@ private extension AuthenticationManager.State {
         if let error = error as? AuthenticationManager.Error {
             self[keyPath: keypath] = .failure(error)
         } else {
-            fatalError("\(AuthenticationManager.self) threw an unexpected error: \(error)")
+            fatalError("\(AuthenticationManager.self) threw unexpectedly \(error)")
         }
     }
 }
