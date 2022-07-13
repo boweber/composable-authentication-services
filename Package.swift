@@ -5,24 +5,29 @@ import PackageDescription
 
 let package = Package(
     name: "composable-authentication-services",
+    platforms: [.macOS(.v10_15), .iOS(.v13)],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
-            name: "composable-authentication-services",
-            targets: ["composable-authentication-services"]),
+            name: "ComposableAuthenticationServices",
+            targets: ["ComposableAuthenticationServices"]
+        ),
     ],
     dependencies: [
-        // Dependencies declare other packages that this package depends on.
-        // .package(url: /* package url */, from: "1.0.0"),
+        .package(
+          url: "https://github.com/pointfreeco/swift-composable-architecture",
+          branch: "concurrency-beta"
+        )
     ],
     targets: [
-        // Targets are the basic building blocks of a package. A target can define a module or a test suite.
-        // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
-            name: "composable-authentication-services",
-            dependencies: []),
+            name: "ComposableAuthenticationServices",
+            dependencies: [
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+            ]
+        ),
         .testTarget(
-            name: "composable-authentication-servicesTests",
-            dependencies: ["composable-authentication-services"]),
+            name: "ComposableAuthenticationServicesTests",
+            dependencies: ["ComposableAuthenticationServices"]),
     ]
 )
